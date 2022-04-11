@@ -13,31 +13,37 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\DrawSystem">
-      <UniqueIdentifier>{2bea4abf-b337-4f0a-9b3a-1ca4d5e65a1a}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\Old">
+      <UniqueIdentifier>{d7d819f6-6ed8-41db-bead-0cd88b107903}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\DrawSystem">
-      <UniqueIdentifier>{1ebec709-2f2c-4e3e-8aec-453dde45b25e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\CoreSystem">
-      <UniqueIdentifier>{8c262e79-adf0-45ae-aa0e-a3113b55914e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\CoreSystem">
+    <Filter Include="Исходные файлы\Old\CoreSystem">
       <UniqueIdentifier>{e8bb3111-a629-4fb7-9067-dbca5f26ca00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\Defined Types And Defines">
-      <UniqueIdentifier>{e4849206-92a4-46d7-8a20-36c9faf01a7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\Defined Types And Defines">
+    <Filter Include="Исходные файлы\Old\Defined Types And Defines">
       <UniqueIdentifier>{b32b349b-a63d-4729-bd39-93d71b9d782e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\InputSystem">
+    <Filter Include="Исходные файлы\Old\DrawSystem">
+      <UniqueIdentifier>{1ebec709-2f2c-4e3e-8aec-453dde45b25e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Old\InputSystem">
       <UniqueIdentifier>{f909d281-77a3-4abb-8795-ca1af78c5e5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\InputSystem">
+    <Filter Include="Файлы заголовков\Old">
+      <UniqueIdentifier>{98f20b7a-c8fe-41d0-b13d-9f56d7935b7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Old\CoreSystem">
+      <UniqueIdentifier>{8c262e79-adf0-45ae-aa0e-a3113b55914e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Old\Defined Types And Defines">
+      <UniqueIdentifier>{e4849206-92a4-46d7-8a20-36c9faf01a7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Old\DrawSystem">
+      <UniqueIdentifier>{2bea4abf-b337-4f0a-9b3a-1ca4d5e65a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Old\InputSystem">
       <UniqueIdentifier>{3dc7821c-a135-4295-814f-0b7bc119e059}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\ScriptSystem">
+    <Filter Include="Файлы заголовков\Old\ScriptSystem">
       <UniqueIdentifier>{bc7af829-2b10-4c1e-9400-378f45a097f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -45,129 +51,135 @@
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicSystem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
-      <Filter>Исходные файлы\DrawSystem</Filter>
+      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="DrawSystem.cpp">
-      <Filter>Исходные файлы\DrawSystem</Filter>
+      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="DrawableComponent.cpp">
-      <Filter>Исходные файлы\DrawSystem</Filter>
+      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Исходные файлы\DrawSystem</Filter>
+      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="LightComponent.cpp">
-      <Filter>Исходные файлы\DrawSystem</Filter>
+      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>Исходные файлы\CoreSystem</Filter>
+      <Filter>Исходные файлы\Old\CoreSystem</Filter>
     </ClCompile>
     <ClCompile Include="ComponentManager.cpp">
-      <Filter>Исходные файлы\CoreSystem</Filter>
+      <Filter>Исходные файлы\Old\CoreSystem</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Исходные файлы\CoreSystem</Filter>
+      <Filter>Исходные файлы\Old\CoreSystem</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>Исходные файлы\CoreSystem</Filter>
+      <Filter>Исходные файлы\Old\CoreSystem</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>Исходные файлы\DrawSystem</Filter>
+      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="Conventers.cpp">
-      <Filter>Исходные файлы\Defined Types And Defines</Filter>
+      <Filter>Исходные файлы\Old\Defined Types And Defines</Filter>
     </ClCompile>
     <ClCompile Include="StaticMeshComponent.cpp">
-      <Filter>Исходные файлы\DrawSystem</Filter>
+      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
-      <Filter>Исходные файлы\InputSystem</Filter>
+      <Filter>Исходные файлы\Old\InputSystem</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
-      <Filter>Исходные файлы\InputSystem</Filter>
+      <Filter>Исходные файлы\Old\InputSystem</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
-      <Filter>Исходные файлы\InputSystem</Filter>
+      <Filter>Исходные файлы\Old\InputSystem</Filter>
     </ClCompile>
-    <ClCompile Include="ScriptableComponent.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="PhysicSystem.cpp">
+      <Filter>Исходные файлы\Old</Filter>
     </ClCompile>
     <ClCompile Include="ScriptSystem.cpp">
+      <Filter>Исходные файлы\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptableComponent.cpp">
+      <Filter>Исходные файлы\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PhysicSystem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="CameraComponent.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="LightComponent.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
     <ClInclude Include="DrawSystem.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="ShaderEnum.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="DrawableComponent.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
-      <Filter>Файлы заголовков\CoreSystem</Filter>
+      <Filter>Файлы заголовков\Old\CoreSystem</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Файлы заголовков\CoreSystem</Filter>
+      <Filter>Файлы заголовков\Old\CoreSystem</Filter>
     </ClInclude>
     <ClInclude Include="ComponentManager.h">
-      <Filter>Файлы заголовков\CoreSystem</Filter>
+      <Filter>Файлы заголовков\Old\CoreSystem</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Файлы заголовков\CoreSystem</Filter>
+      <Filter>Файлы заголовков\Old\CoreSystem</Filter>
     </ClInclude>
     <ClInclude Include="Defines.h">
-      <Filter>Файлы заголовков\Defined Types And Defines</Filter>
+      <Filter>Файлы заголовков\Old\Defined Types And Defines</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
-      <Filter>Файлы заголовков\Defined Types And Defines</Filter>
+      <Filter>Файлы заголовков\Old\Defined Types And Defines</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Файлы заголовков\Defined Types And Defines</Filter>
+      <Filter>Файлы заголовков\Old\Defined Types And Defines</Filter>
     </ClInclude>
     <ClInclude Include="StaticMeshComponent.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Файлы заголовков\DrawSystem</Filter>
+      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
     </ClInclude>
     <ClInclude Include="Converters.h">
-      <Filter>Файлы заголовков\Defined Types And Defines</Filter>
+      <Filter>Файлы заголовков\Old\Defined Types And Defines</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
-      <Filter>Файлы заголовков\InputSystem</Filter>
+      <Filter>Файлы заголовков\Old\InputSystem</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
-      <Filter>Файлы заголовков\InputSystem</Filter>
+      <Filter>Файлы заголовков\Old\InputSystem</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
-      <Filter>Файлы заголовков\InputSystem</Filter>
+      <Filter>Файлы заголовков\Old\InputSystem</Filter>
     </ClInclude>
     <ClInclude Include="ScriptableComponent.h">
-      <Filter>Файлы заголовков\ScriptSystem</Filter>
+      <Filter>Файлы заголовков\Old\ScriptSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicSystem.h">
+      <Filter>Файлы заголовков\Old</Filter>
     </ClInclude>
     <ClInclude Include="ScriptSystem.h">
+      <Filter>Файлы заголовков\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,6 @@
 #include "ComponentManager.h"
 #include "Input.h"
 #include "InputSystem.h"
-#include <boost/signals2.hpp>
 #include <string>
 #include "ObjectPool.h"
 

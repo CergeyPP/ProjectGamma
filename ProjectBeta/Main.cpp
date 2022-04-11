@@ -4,16 +4,10 @@
 #include "PxPhysicsAPI.h"
 #include <functional>
 
-#include "World.h"
-#include "DrawSystem.h"
-#include "PhysicSystem.h"
-#include "Input.h"
-#include "InputSystem.h"
-
-#include "CameraComponent.h"
-#include "StaticMeshComponent.h"
+#include "Window.h"
 
 using namespace physx;
+
 
 
 int main() {
@@ -22,22 +16,29 @@ int main() {
 
 	glfwInit();
 
-	DrawSystem *drawSystem = DrawSystem::get();
-	PhysicSystem* physicSystem = PhysicSystem::get();
-	InputSystem* inputSystem = InputSystem::get();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	World *world = World::get();
-	world->load();
+	//DrawSystem *drawSystem = DrawSystem::get();
+	//PhysicSystem* physicSystem = PhysicSystem::get();
+	//InputSystem* inputSystem = InputSystem::get();
+
+	//World *world = World::get();
+	//world->load();
+
+	//glfwSetMouseButtonCallback(drawSystem->getWindow(), Input::mouseButtonCallback);
+	//glfwSetKeyCallback(drawSystem->getWindow(), Input::keyCallback);
+	//glfwSetCursorPosCallback(drawSystem->getWindow(), Input::mouseCursorCallback);
+
+	//glClearColor(0.3, 0.3, 0.3, 1.f);
+
+	Window& window = Window::get();
 
 	float currentTime = glfwGetTime();
 
-	glfwSetMouseButtonCallback(drawSystem->getWindow(), Input::mouseButtonCallback);
-	glfwSetKeyCallback(drawSystem->getWindow(), Input::keyCallback);
-	glfwSetCursorPosCallback(drawSystem->getWindow(), Input::mouseCursorCallback);
-
-	glClearColor(0.3, 0.3, 0.3, 1.f);
-
-	while (!glfwWindowShouldClose(drawSystem->getWindow())) {
+	while (!glfwWindowShouldClose(window.getGLFWwindow())) {
 
 		float time = glfwGetTime();
 		float deltaTime = time - currentTime;
@@ -54,22 +55,16 @@ int main() {
 
 		//std::cout << deltaTime << std::endl;
 
-		world->update(deltaTime);
+		//world->update(deltaTime);
 
 		glfwPollEvents();
 
-		drawSystem->draw();
+		//drawSystem->draw();
 
 		//meshComp->draw();
 	}
 
 	glfwTerminate();
-
-	delete world;
-
-	delete drawSystem;
-	delete physicSystem;
-	delete inputSystem;
 
 	//_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
 	//_CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDOUT);
@@ -79,7 +74,7 @@ int main() {
 	//_CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDOUT);
 	//_CrtDumpMemoryLeaks();
 
-	system("pause");
+	//system("pause");
 
 	return 0;
 }
