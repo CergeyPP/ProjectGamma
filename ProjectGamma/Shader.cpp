@@ -150,7 +150,7 @@ void Shader::releaseProgram()
     program_ = -1;
 }
 
-void Shader::setUniform(const std::string name, bool& value)
+void Shader::setUniform(const std::string name, bool value)
 {
     if (uniformOffset_.find(name) == uniformOffset_.end()) {
 
@@ -161,7 +161,7 @@ void Shader::setUniform(const std::string name, bool& value)
     glUniform1i(loc, value);
 }
 
-void Shader::setUniform(const std::string name, int& value)
+void Shader::setUniform(const std::string name, int value)
 {
     if (uniformOffset_.find(name) == uniformOffset_.end()) {
 
@@ -172,7 +172,7 @@ void Shader::setUniform(const std::string name, int& value)
     glUniform1i(loc, value);
 }
 
-void Shader::setUniform(const std::string name, float& value)
+void Shader::setUniform(const std::string name, float value)
 {
     if (uniformOffset_.find(name) == uniformOffset_.end()) {
 
@@ -234,11 +234,11 @@ void Shader::setUniform(const std::string name, glm::mat4& value)
         uniformOffset_[name] = glGetUniformLocation(program_, name.c_str());
     }
     GLint loc = /*glGetUniformLocation(program_, name)*/uniformOffset_[name];
-    if (loc < 0) std::cout << name << " notFound!" << std::endl;
+    //if (loc < 0) std::cout << name << " not found in shader " << program_ << std::endl;
     glUniformMatrix4fv(loc, 1, 0, glm::value_ptr(value));
 }
 
-void Shader::setTexture3D(const std::string name, GLuint& value)
+void Shader::setTexture3D(const std::string name, GLuint value)
 {
     if (textureUniformOffset_.find(name) == textureUniformOffset_.end()) {
 
@@ -253,12 +253,12 @@ void Shader::setTexture3D(const std::string name, GLuint& value)
     TextureUniform uniform = textureUniformOffset_[name];
     
     glActiveTexture(GL_TEXTURE0 + uniform.textureIndex);
-    glBindTexture(GL_TEXTURE_2D, value);
+    glBindTexture(GL_TEXTURE_3D, value);
     glUniform1i(uniform.offset, uniform.textureIndex);
     glActiveTexture(0);
 }
 
-void Shader::setTexture2D(const std::string name, GLuint& value)
+void Shader::setTexture2D(const std::string name, GLuint value)
 {
     if (textureUniformOffset_.find(name) == textureUniformOffset_.end()) {
 
@@ -273,7 +273,55 @@ void Shader::setTexture2D(const std::string name, GLuint& value)
     TextureUniform uniform = textureUniformOffset_[name];
 
     glActiveTexture(GL_TEXTURE0 + uniform.textureIndex);
-    glBindTexture(GL_TEXTURE_3D, value);
+    glBindTexture(GL_TEXTURE_2D, value);
     glUniform1i(uniform.offset, uniform.textureIndex);
     glActiveTexture(0);
+}
+
+GLuint Texture(glm::vec4 color)
+{
+    GLuint texID_;
+    glGenTextures(1, &texID_);
+    glBindTexture(GL_TEXTURE_2D, texID_);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+    unsigned char image[] = {color.r * 255, color.g * 255, color.b * 255, color.a * 255};
+
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB + int((float)sizeof(image) /width/height/3), width, height, 0, GL_RGB + int((float)sizeof(image) / width / height / 3), GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    return texID_;
+}
+
+GLuint Texture(std::string filePath)
+{
+    GLuint texID_;
+    glGenTextures(1, &texID_);
+    glBindTexture(GL_TEXTURE_2D, texID_);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+    int width, height;
+    unsigned char* image = SOIL_load_image(filePath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+    if (sizeof(image) == 0) {
+        printf("File didnt open");
+    }
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB + int((float)sizeof(image) /width/height/3), width, height, 0, GL_RGB + int((float)sizeof(image) / width / height / 3), GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    SOIL_free_image_data(image);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    return texID_;
 }

@@ -1,12 +1,14 @@
 #include "GameObject.h"
 #include "Converters.h"
+#include "ScriptableComponent.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
 glm::mat4 GameObject::getTransformMatrix()
 {
-    glm::mat4 matrix = glm::scale(glm::mat4(1), scale_);
-    matrix = glm::rotate(matrix, rotation_.w, glm::vec3(rotation_.x, rotation_.y, rotation_.z));
-    matrix = glm::translate(matrix, position_);
+    glm::mat4 scale = glm::scale(glm::mat4(1), scale_);
+    glm::mat4 rotate = glm::mat4_cast(rotation_);
+    glm::mat4 translate = glm::translate(glm::mat4(1), position_);
+    glm::mat4 matrix = translate * rotate * scale;
     return (root_ != nullptr) ? root_->getTransformMatrix() * matrix : matrix;
     //return glm::mat4(1);
 }
@@ -47,6 +49,18 @@ glm::vec3 GameObject::getScale()
     return scale_;
 }
 
+void GameObject::setScale(glm::vec3 scale) {
+    scale_ = scale;
+}
+
+void GameObject::setRot(glm::quat rot) {
+    rotation_ = rot;
+}
+
+void GameObject::getPos(glm::vec3 pos) {
+    position_ = pos;
+}
+
 void GameObject::translate(glm::vec3 translateVec)
 {
     position_ += translateVec;
@@ -78,7 +92,7 @@ GameObject::GameObject(Scene* scene, GameObject* root)
     scene_ = scene;
     active_ = false;
     position_ = glm::vec3(0);
-    rotation_ = glm::quat(0, 0, 0, 1);
+    rotation_ = glm::quat(1,0,0,0);
     scale_ = glm::vec3(1);
 }
 
@@ -102,6 +116,11 @@ void GameObject::init()
 
 void GameObject::update(float deltaTime)
 {
+    auto scripts = getComponent<ScriptableComponent>();
+    for (auto& elem : scripts) {
+        ScriptableComponent* script = (ScriptableComponent*)elem;
+        script->Update(deltaTime);
+    }
 }
 
 void GameObject::applyChanges()

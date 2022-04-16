@@ -21,6 +21,12 @@ public:
 	glm::quat getRot();
 	glm::vec3 getScale();
 
+	void setScale(glm::vec3 scale);
+
+	void setRot(glm::quat rot);
+
+	void getPos(glm::vec3 pos);
+
 	void translate(glm::vec3 translateVec);
 	void rotate(glm::quat newRotate);
 	void toScale(glm::vec3 newScale);

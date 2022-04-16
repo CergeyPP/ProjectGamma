@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "CameraComponent.h"
 #include "DrawableComponent.h"
+#include "LightComponent.h"
 
 class DrawSystem
 {
@@ -23,12 +24,20 @@ public:
 
 	void addCamera(CameraComponent* camera);
 	void addDrawable(DrawableComponent* drawable);
+	void addLight(LightComponent* light);
+
+	void removeCamera(CameraComponent* camera);
+	void removeDrawable(DrawableComponent* drawable);
+	void removeLight(LightComponent* light);
 
 private:
 
 	std::vector<CameraComponent*> camera_;
 	std::vector<DrawableComponent*> drawable_;
+	std::vector<LightComponent*> light_;
 	CameraComponent* mainCamera_;
+
+	void loadLight(Shader& shader);
 
 	DrawSystem();
 	~DrawSystem();

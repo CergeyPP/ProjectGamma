@@ -21,6 +21,8 @@ DrawableComponent::~DrawableComponent() {
 	if (VAO) {
 		glDeleteVertexArrays(1, &VAO);
 	}
+
+    DrawSystem::get().removeDrawable(this);
 }
 
 void DrawableComponent::init(Mesh& mesh) {

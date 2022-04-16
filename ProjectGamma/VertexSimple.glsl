@@ -9,6 +9,7 @@ uniform mat4 Model;
 out vec2 TexCoords;
 
 void main(){
-	gl_Position = Projection * View * Model * vec4(position, 1);
+	 gl_Position = Projection * View * Model * vec4(position, 1);
+	//gl_Position = Model*vec4(position, 1);
 	TexCoords = texCoords;
 }

@@ -45,5 +45,10 @@ Material::Material(ShaderType shader) {
 }
 Material::~Material() {
 
-   
+    for (auto& elem : tex2DParam) {
+        glDeleteTextures(1, &elem.second);
+    }
+    for (auto& elem : tex3DParam) {
+        glDeleteTextures(1, &elem.second);
+    }
 }

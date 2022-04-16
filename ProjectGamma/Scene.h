@@ -21,6 +21,8 @@ public:
 
 	void update(float deltaTime);
 
+	glm::vec4 ambientColor;
+
 private:
 
 	Scene();

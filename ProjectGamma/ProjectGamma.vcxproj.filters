@@ -16,22 +16,13 @@
     <Filter Include="Исходные файлы\Old">
       <UniqueIdentifier>{d7d819f6-6ed8-41db-bead-0cd88b107903}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Old\DrawSystem">
-      <UniqueIdentifier>{1ebec709-2f2c-4e3e-8aec-453dde45b25e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\Old">
       <UniqueIdentifier>{98f20b7a-c8fe-41d0-b13d-9f56d7935b7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\Old\DrawSystem">
-      <UniqueIdentifier>{2bea4abf-b337-4f0a-9b3a-1ca4d5e65a1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="LightComponent.cpp">
-      <Filter>Исходные файлы\Old\DrawSystem</Filter>
     </ClCompile>
     <ClCompile Include="PhysicSystem.cpp">
       <Filter>Исходные файлы\Old</Filter>
@@ -81,11 +72,17 @@
     <ClCompile Include="StaticMeshComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="LightComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptableComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveScript.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LightComponent.h">
-      <Filter>Файлы заголовков\Old\DrawSystem</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
@@ -116,9 +113,6 @@
     <ClInclude Include="Defines.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -144,6 +138,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="StaticMeshComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LightComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Файлы заголовков\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptableComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveScript.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

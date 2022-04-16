@@ -6,27 +6,35 @@ void Input::onEvent(Event& event)
 	case EventType::KEY_PRESSED_EVENT:
 	{
 		KeyEvent& keyEvent = (KeyEvent&)event;
-		if (keyEvent.button == GLFW_KEY_D) {
+		switch (keyEvent.button) {
+		case GLFW_KEY_D: {
 			HorizontalEvent pushEvent(1);
 			dispatcherByName["Horizontal"](pushEvent);
 			break;
 		}
-		if (keyEvent.button == GLFW_KEY_A) {
+		case GLFW_KEY_A: {
 			HorizontalEvent pushEvent(-1);
 			dispatcherByName["Horizontal"](pushEvent);
 			break;
 		}
-		if (keyEvent.button == GLFW_KEY_W) {
+		case  GLFW_KEY_W: {
 			VerticalEvent pushEvent(1);
 			dispatcherByName["Vertical"](pushEvent);
 			break;
 		}
-		if (keyEvent.button == GLFW_KEY_S) {
+		case GLFW_KEY_S: {
 			VerticalEvent pushEvent(-1);
 			dispatcherByName["Vertical"](pushEvent);
 			break;
 		}
-
+		case GLFW_KEY_ENTER: {
+			Window& window = Window::get();
+			bool cursorFlag = glfwGetInputMode(window.getGLFWwindow(), GLFW_CURSOR) - GLFW_CURSOR_NORMAL;
+			std::cout << "Cursor flag: " << cursorFlag << std::endl;
+			glfwSetInputMode(window.getGLFWwindow(), GLFW_CURSOR, (!cursorFlag) ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+			break;
+		}
+		}
 		break;
 	}
 	case EventType::KEY_RELEASED_EVENT:
@@ -68,11 +76,13 @@ void Input::onEvent(Event& event)
 
 		break;*/
 	case EventType::MOUSE_MOVED_EVENT:
-	{
+	{ 
 		MouseMovedEvent& mouseEvent = (MouseMovedEvent&)event;
-		LookEvent look = LookEvent(mouseEvent.position);
-		look.offset = mouseEvent.position - mousePos;
-		dispatcherByName["Look"](look);
+		if ((glfwGetInputMode(Window::get().getGLFWwindow(), GLFW_CURSOR) - GLFW_CURSOR_NORMAL)) {
+			LookEvent look = LookEvent(mouseEvent.position);
+			look.offset = mouseEvent.position - mousePos;
+			dispatcherByName["Look"](look);
+		}
 
 		mousePos = mouseEvent.position;
 		break;

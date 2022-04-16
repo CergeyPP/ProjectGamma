@@ -1,4 +1,5 @@
 #include "InputComponent.h"
+#include "CameraComponent.h"
 #include <string>
 
 void InputComponent::setActive(bool active)
@@ -34,23 +35,41 @@ void InputComponent::onEvent(Event& event)
 	}
 	case EventType::SCROLLED_EVENT:
 	{
-		std::cout << "Scrolled " << ((ScrollEvent&)event).offset.y << std::endl;
+		ScrollEvent& scrollEv = ((ScrollEvent&)event);
+		std::cout << "Scrolled " << scrollEv.offset.y << std::endl;
+		CameraComponent* camera = (CameraComponent*)getRoot()->getComponent<CameraComponent>()[0];
+		camera->FOV -= scrollEv.offset.y/10;
 		break;
 	}
 	case EventType::HORIZONTAL_EVENT:
 	{
-		std::cout << "Move right " << ((HorizontalEvent&)event).value << std::endl;
+		HorizontalEvent& horizontalEv = (HorizontalEvent&)event;
+
+		std::cout << "Move right " << horizontalEv.value << std::endl;
+
+		__raise onHorizontal(horizontalEv.value);
+
 		break;
 	}
 	case EventType::VERTICAL_EVENT:
 	{
-		std::cout << "Move up " << ((VerticalEvent&)event).value << std::endl;
+		VerticalEvent& verticalEv = (VerticalEvent&)event;
+
+		
+
+		std::cout << "Move up " << verticalEv.value << std::endl;
+
+		__raise onVertical(verticalEv.value);
+
 		break;
 	}
 	case EventType::LOOK_EVENT:
 	{
 		LookEvent& lookEv = (LookEvent&)event;
 		std::cout << "Looked " << lookEv.offset.x << ":" << lookEv.offset.y << std::endl;
+
+		__raise onLook(lookEv.offset);
+
 		break;
 	}
 	default:

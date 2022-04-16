@@ -315,9 +315,11 @@
     <ClCompile Include="DrawSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="LightComponent.cpp" />
+    <ClCompile Include="MoveScript.cpp" />
     <ClCompile Include="PhysicSystem.cpp" />
     <ClCompile Include="DrawableComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ScriptableComponent.cpp" />
     <ClCompile Include="StaticMeshComponent.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -330,6 +332,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MoveScript.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
@@ -341,6 +344,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="DrawableComponent.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ScriptableComponent.h" />
     <ClInclude Include="StaticMeshComponent.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Shader.h" />

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <map>
 #include <glm/glm.hpp>
+#include <SOIL/SOIL.h>
 
 class Shader {
 public:
@@ -20,16 +21,16 @@ public:
 	GLuint getProgram();
 	void releaseProgram();
 
-	void setUniform(const std::string name, bool& value);
-	void setUniform(const std::string name, int& value);
-	void setUniform(const std::string name, float& value);
+	void setUniform(const std::string name, bool value);
+	void setUniform(const std::string name, int value);
+	void setUniform(const std::string name, float value);
 	void setUniform(const std::string name, glm::vec3& value);
 	void setUniform(const std::string name, glm::vec2& value);
 	void setUniform(const std::string name, glm::vec4& value);
 	void setUniform(const std::string name, glm::mat3& value);
 	void setUniform(const std::string name, glm::mat4& value);
-	void setTexture3D(const std::string name, GLuint& value);
-	void setTexture2D(const std::string name, GLuint& value);
+	void setTexture3D(const std::string name, GLuint value);
+	void setTexture2D(const std::string name, GLuint value);
 
 
 private:
@@ -47,6 +48,9 @@ private:
 	GLint fragmentShaderID_ = -1;
 	GLint geometryShaderID_ = -1;
 	
-
 	int textureCount = 0;
 };
+
+
+GLuint Texture(std::string filePath);
+GLuint Texture(glm::vec4 color);

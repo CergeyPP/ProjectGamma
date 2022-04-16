@@ -14,4 +14,5 @@ CameraComponent::CameraComponent(GameObject* root) : Component(root) {
 
 CameraComponent::~CameraComponent()
 {
+	DrawSystem::get().removeCamera(this);
 }

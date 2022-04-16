@@ -46,6 +46,7 @@ int main() {
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	DrawSystem& drawSystem = DrawSystem::get();
+	glfwPollEvents();
 	Input& input = Input::get();
 	Scene& scene = Scene::get();
 
