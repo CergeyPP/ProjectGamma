@@ -1,4 +1,6 @@
 #include "Input.h"
+#include "Scene.h"
+#include "LightComponent.h"
 
 void Input::onEvent(Event& event)
 {

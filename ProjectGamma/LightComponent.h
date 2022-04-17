@@ -9,19 +9,23 @@ enum class LightType : int32_t {
     LIGHTTYPE_COUNT,
 };
 
+struct Light {
+    LightType type;
+    float cutoff;
+    float linear;
+    float quadratic;
+    glm::vec4 position;
+    glm::vec4 direction;
+    glm::vec4 diffuse;
+    glm::vec4 specular;
+};
+
 class LightComponent :
     public Component
 {
 public:
 
-    LightType type;
-    glm::vec3 diffuse;
-    glm::vec3 specular;
-
-    float cutoff;
-
-    float linear;
-    float quadratic;
+    Light light;
 
     void setDistance(float distance);
     float getDistance(float distance);

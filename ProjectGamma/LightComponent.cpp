@@ -3,24 +3,24 @@
 
 void LightComponent::setDistance(float distance)
 {
-	linear = 4.5 / distance;
-	quadratic = 75 / distance / distance;
+	light.linear = 4.5 / distance;
+	light.quadratic = 75 / distance / distance;
 }
 
 float LightComponent::getDistance(float distance)
 {
-	return 4.5 / linear;
+	return 4.5 / light.linear;
 }
 
 LightComponent::LightComponent(GameObject* root) : Component(root) {
 	DrawSystem::get().addLight(this);
 
-	cutoff = 0;
-	linear = 1;
-	quadratic = 1;
-	type = LightType::LIGHTTYPE_COUNT;
-	diffuse = glm::vec3(0);
-	specular = glm::vec3(0);
+	light.cutoff = 0;
+	light.linear = 1;
+	light.quadratic = 1;
+	light.type = LightType::LIGHTTYPE_COUNT;
+	light.diffuse = glm::vec4(0);
+	light.specular = glm::vec4(0);
 
 }
 

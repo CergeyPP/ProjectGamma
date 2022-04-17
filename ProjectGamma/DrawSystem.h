@@ -10,6 +10,8 @@
 #include "DrawableComponent.h"
 #include "LightComponent.h"
 
+#define LIGHTS_MAX 100
+
 class DrawSystem
 {
 public:
@@ -37,7 +39,9 @@ private:
 	std::vector<LightComponent*> light_;
 	CameraComponent* mainCamera_;
 
-	void loadLight(Shader& shader);
+	void loadLight();
+
+	GLuint lightUBO;
 
 	DrawSystem();
 	~DrawSystem();

@@ -6,30 +6,42 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-void DrawSystem::loadLight(Shader& shader)
+void DrawSystem::loadLight()
 {
-	shader.setUniform("lightCount", (int)light_.size());
+	//shader.setUniform("lightCount", (int)light_.size());
+	int lightSize = light_.size();
+	glBindBuffer(GL_UNIFORM_BUFFER, lightUBO);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(int), &lightSize);
 	int i = 0;
 	for (auto& elem : light_) {
-		const std::string uniformName = "light[" + std::to_string(i) + "]";
-		glm::vec3 position = elem->getRoot()->getPos();
-		glm::vec3 direction = elem->getRoot()->getTransformMatrix() * glm::vec4(1, 0, 0, 0);
-		int type = (int)elem->type;
-		float cutoff = elem->cutoff;
-		float linear = elem->linear;
-		float quadratic = elem->quadratic;
-		glm::vec3 diffuse = elem->diffuse;
-		glm::vec3 specular = elem->specular;
 
-		shader.setUniform(uniformName + ".type", type);
+		//const std::string uniformName = "light[" + std::to_string(i) + "]";
+		Light& light = elem->light;
+		light.position = glm::vec4(elem->getRoot()->getPos(), 1);
+		light.direction = elem->getRoot()->getTransformMatrix() * glm::vec4(1, 0, 0, 0);
+
+
+		/*int type = (int)light.type;
+		float cutoff = light.cutoff;
+		float linear = light.linear;
+		float quadratic = light.quadratic;
+		glm::vec3 diffuse = light.diffuse;
+		glm::vec3 specular = light.specular;*/
+
+		glBufferSubData(GL_UNIFORM_BUFFER, 16 + sizeof(Light) * i, sizeof(Light), &light);
+
+		/*shader.setUniform(uniformName + ".type", type);
 		shader.setUniform(uniformName + ".position", position);
 		shader.setUniform(uniformName + ".direction", direction);
 		shader.setUniform(uniformName + ".cutoff", cutoff);
 		shader.setUniform(uniformName + ".linear", linear);
 		shader.setUniform(uniformName + ".quadratic", quadratic);
 		shader.setUniform(uniformName + ".diffuse", diffuse);
-		shader.setUniform(uniformName + ".specular", specular);
+		shader.setUniform(uniformName + ".specular", specular);*/
+
+		i++;
 	}
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
 DrawSystem::DrawSystem() : window_(Window::get()) {
@@ -43,9 +55,20 @@ DrawSystem::DrawSystem() : window_(Window::get()) {
 	shader_[Light_Shader].loadFragment("FLightProcessed.glsl");
 	shader_[Light_Shader].linkProgram();
 
+
+	std::cout << glGetUniformBlockIndex(shader_[Light_Shader].getProgram(), "LightBlock") << std::endl;
+	//glUniformBlockBinding(shader_[Light_Shader].getProgram(), glGetUniformBlockIndex(shader_[Light_Shader].getProgram(), "LightBlock"), 1);
+
 	//std::cout << "Location of light:" << glGetUniformLocation(shader_[Light_Shader].getProgram(), "light[0]") << std::endl;
 
 	mainCamera_ = nullptr;
+
+	glGenBuffers(1, &lightUBO);
+	glBindBuffer(GL_UNIFORM_BUFFER, lightUBO);
+	glBufferData(GL_UNIFORM_BUFFER, LIGHTS_MAX * sizeof(Light) + 16, NULL, GL_STATIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	glBindBufferBase(GL_UNIFORM_BUFFER, 1, lightUBO);
+
 }
 
 void DrawSystem::draw() {
@@ -65,6 +88,8 @@ void DrawSystem::draw() {
 		glm::vec3(cameraTransform * glm::vec4(1, 0, 0, 1))/*glm::vec3(0,0,0)*/,
 		glm::vec3(0, 1, 0));
 
+	loadLight();
+
 	for (auto& elem : shader_) {
 		if (elem.getProgram() > 0x7fffffff) continue;
 		glUseProgram(elem.getProgram());
@@ -72,7 +97,7 @@ void DrawSystem::draw() {
 		elem.setUniform("Projection", projection);
 		elem.setUniform("View", view);
 		elem.setUniform("viewPos", pos);
-		loadLight(elem);
+		
 	}
 
 	for (auto& drawable : drawable_) {

@@ -23,6 +23,18 @@ public:
 
 	glm::vec4 ambientColor;
 
+	template<typename T>
+	std::vector<GameObject*> findObjectsWith() {
+		std::vector<GameObject*> objectList;
+		for (auto elem : gameObjects_) {
+			if (elem->getComponent<T>().size() > 0) {
+				objectList.push_back(elem);
+			}
+		}
+
+		return objectList;
+	}
+
 private:
 
 	Scene();

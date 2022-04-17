@@ -8,6 +8,17 @@
 
 void Scene::load(std::string filePath)
 {
+    for (auto& elem : objectsToInstantiate_) {
+        delete elem;
+    }
+    for (auto& elem : gameObjects_) {
+        delete elem;
+    }
+    for (auto& elem : objectsToDestroy_) {
+        delete elem;
+    }
+
+
     objectsToDestroy_.clear();
     objectsToInstantiate_.clear();
     gameObjects_.clear();
@@ -20,7 +31,7 @@ void Scene::load(std::string filePath)
     }
     else {
 
-        ambientColor = glm::vec4(0.7);
+        ambientColor = glm::vec4(0.2);
 
         auto obj = instantiate(nullptr);
         obj->translate(glm::vec3(0, 0, 0));
@@ -39,16 +50,39 @@ void Scene::load(std::string filePath)
 
         auto sun = instantiate(nullptr);
         sun->position_ = glm::vec3(1, 3, 0);
-        //sun->rotation_ = glm::quat(glm::vec3(0, 0, -glm::pi<float>()/4));
+        sun->rotation_ = glm::quat(glm::vec3(0, 0, -glm::pi<float>()/4));
         LightComponent* light = (LightComponent*)sun->instantiateComponent<LightComponent>();
-        light->diffuse = glm::vec3(1);
-        light->specular = glm::vec3(1);
-        light->type = LightType::DIRECTIONAL_LIGHT;
-        //light->setDistance(40);
+        light->light.diffuse = glm::vec4(1);
+        light->light.specular = glm::vec4(1);
+        light->light.type = LightType::DIRECTIONAL_LIGHT;
         mesh = (StaticMeshComponent*)sun->instantiateComponent<StaticMeshComponent>();
         mesh->setMesh(createBoxMesh(glm::vec3(0.1,0.05, 0.05)));
         mesh->material = Material(Simplest_Shader);
-        mesh->material.tex2DParam["Albedo"] = Texture(glm::vec4(1));
+        mesh->material.tex2DParam["Albedo"] = Texture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+
+        auto lamp = instantiate(nullptr);
+        lamp->position_ = glm::vec3(1, 0, 2);
+        light = (LightComponent*)lamp->instantiateComponent<LightComponent>();
+        light->light.diffuse = glm::vec4(1);
+        light->light.specular = glm::vec4(1,0,1,1);
+        light->light.type = LightType::POINT_LIGHT;
+        light->setDistance(25);
+        mesh = (StaticMeshComponent*)lamp->instantiateComponent<StaticMeshComponent>();
+        mesh->setMesh(createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
+        mesh->material = Material(Simplest_Shader);
+        mesh->material.tex2DParam["Albedo"] = Texture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+
+        lamp = instantiate(nullptr);
+        lamp->position_ = glm::vec3(-3, -2, -1);
+        light = (LightComponent*)lamp->instantiateComponent<LightComponent>();
+        light->light.diffuse = glm::vec4(1,0,0,1);
+        light->light.specular = glm::vec4(0,1,0,1);
+        light->light.type = LightType::POINT_LIGHT;
+        light->setDistance(50);
+        mesh = (StaticMeshComponent*)lamp->instantiateComponent<StaticMeshComponent>();
+        mesh->setMesh(createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
+        mesh->material = Material(Simplest_Shader);
+        mesh->material.tex2DParam["Albedo"] = Texture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
     }
 }
 

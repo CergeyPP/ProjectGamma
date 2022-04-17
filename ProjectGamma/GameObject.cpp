@@ -101,8 +101,8 @@ GameObject::~GameObject()
     for (auto& elem : children_) {
         scene_->destroy(elem);
     }
-    for (auto& elem : components_) {
-        delete elem;
+    for (int elem = components_.size() - 1; elem >= 0; elem--) {
+        delete components_[elem];
     }
 }
 
