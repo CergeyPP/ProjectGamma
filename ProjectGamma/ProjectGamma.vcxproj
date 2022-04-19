@@ -318,6 +318,7 @@
     <ClCompile Include="MoveScript.cpp" />
     <ClCompile Include="PhysicSystem.cpp" />
     <ClCompile Include="DrawableComponent.cpp" />
+    <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ScriptableComponent.cpp" />
     <ClCompile Include="StaticMeshComponent.cpp" />
@@ -343,6 +344,7 @@
     <ClInclude Include="PhysicSystem.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="DrawableComponent.h" />
+    <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ScriptableComponent.h" />
     <ClInclude Include="StaticMeshComponent.h" />

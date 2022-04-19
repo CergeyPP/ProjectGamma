@@ -3,8 +3,8 @@
 #include <glm/gtx/quaternion.hpp>
 #include <vector>
 #include "PxPhysicsAPI.h"
-#include "Scene.h"
 
+class Scene;
 class Component;
 
 class GameObject
@@ -110,3 +110,4 @@ private:
 };
 
 #include "Component.h"
+#include "Scene.h"
