@@ -6,6 +6,8 @@
 
 class GameObject;
 
+class RigidBodyComponent;
+
 class Scene
 {
 public:
@@ -35,6 +37,11 @@ public:
 		return objectList;
 	}
 
+	physx::PxScene* getPxScene();
+	physx::PxPhysics* getPxPhysics();
+
+	void addRigidComponent(RigidBodyComponent* comp);
+
 private:
 
 	Scene();
@@ -47,6 +54,8 @@ private:
 	std::vector<GameObject*> objectsToDestroy_;
 	std::vector<GameObject*> objectsToInstantiate_;
 
+	std::vector<RigidBodyComponent*> rigidBodies_;
+
 	physx::PxDefaultAllocator pxAllocator_;
 	physx::PxDefaultErrorCallback pxErrorCallback_;
 	physx::PxFoundation* foundation_;
@@ -57,4 +66,5 @@ private:
 };
 
 #include "GameObject.h"
+//#include "RigidBodyComponent.h"
 

@@ -49,6 +49,7 @@ int main() {
 	glfwPollEvents();
 	Input& input = Input::get();
 	Scene& scene = Scene::get();
+	scene.load();
 
 	//TestEventHandler handler(&window.dispatcher);
 
