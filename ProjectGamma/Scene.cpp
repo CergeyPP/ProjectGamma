@@ -6,6 +6,9 @@
 #include "RigidBodyComponent.h"
 #include "LightComponent.h"
 #include "MoveScript.h"
+#include "CharacterControllerComponent.h"
+#include "DrawSystem.h"
+#include "CharMoveScript.h"
 
 void Scene::load(std::string filePath)
 {
@@ -18,7 +21,6 @@ void Scene::load(std::string filePath)
     for (auto& elem : objectsToDestroy_) {
         delete elem;
     }
-
 
     objectsToDestroy_.clear();
     objectsToInstantiate_.clear();
@@ -36,20 +38,27 @@ void Scene::load(std::string filePath)
     desc.filterShader = physx::PxDefaultSimulationFilterShader;
     scene_ = physics_->createScene(desc);
 
+    controllerManager_ = PxCreateControllerManager(*scene_);
+
     if (filePath != "DebugScene") {
         //load scene from file
     }
     else {
 
         ambientColor = glm::vec4(0.2);
+        DrawSystem& drawSystem = DrawSystem::get();
 
         {
             auto obj = instantiate(nullptr);
-            obj->translate(glm::vec3(0, 0, 0));
+            obj->translate(glm::vec3(0, 10, 0));
             obj->instantiateComponent<InputComponent>();
             CameraComponent* camera = (CameraComponent*)obj->instantiateComponent<CameraComponent>();
             camera->FOV = 90.f;
-            obj->instantiateComponent<MoveScript>();
+            CharacterControllerComponent* character = (CharacterControllerComponent*)obj->instantiateComponent<CharacterControllerComponent>();
+            auto material = physics_->createMaterial(0.5, 0.5, 1);
+            character->initController(1, 0.1, material);
+            character->enableGravity = 1;
+            obj->instantiateComponent<CharMoveScript>();
         }
 
         {
@@ -65,8 +74,8 @@ void Scene::load(std::string filePath)
             StaticMeshComponent* mesh = (StaticMeshComponent*)floor->instantiateComponent<StaticMeshComponent>();
             mesh->setMesh(createBoxMesh(glm::vec3(20, 0.1, 20)));
             mesh->material = Material(Light_Shader);
-            mesh->material.tex2DParam["material.Albedo"] = Texture(glm::vec4(0.7, 0.7, 0.7, 1));
-            mesh->material.tex2DParam["material.Specular"] = Texture(glm::vec4(0.3));
+            mesh->material.tex2DParam["material.Albedo"] = drawSystem.getTexture(glm::vec4(0.7, 0.7, 0.7, 1));
+            mesh->material.tex2DParam["material.Specular"] = drawSystem.getTexture(glm::vec4(0.3));
             mesh->material.floatParam["material.shininess"] = 8;
         }
 
@@ -77,8 +86,8 @@ void Scene::load(std::string filePath)
                 StaticMeshComponent* mesh = (StaticMeshComponent*)cube->instantiateComponent<StaticMeshComponent>();
                 mesh->setMesh(createBoxMesh(glm::vec3(2)));
                 mesh->material = Material(Light_Shader);
-                mesh->material.tex2DParam["material.Albedo"] = Texture("container.png");
-                mesh->material.tex2DParam["material.Specular"] = Texture("containerSpecular.png");
+                mesh->material.tex2DParam["material.Albedo"] = drawSystem.getTexture("container.png");
+                mesh->material.tex2DParam["material.Specular"] = drawSystem.getTexture("containerSpecular.png");
                 mesh->material.floatParam["material.shininess"] = 1024;
 
                 RigidBodyComponent* rBody = (RigidBodyComponent*)cube->instantiateComponent<RigidBodyComponent>();
@@ -104,8 +113,10 @@ void Scene::load(std::string filePath)
             StaticMeshComponent* mesh = (StaticMeshComponent*)sun->instantiateComponent<StaticMeshComponent>();
             mesh->setMesh(createBoxMesh(glm::vec3(0.1, 0.05, 0.05)));
             mesh->material = Material(Simplest_Shader);
-            mesh->material.tex2DParam["Albedo"] = Texture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+            mesh->material.tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
         }
+
+        
 
         {
             auto lamp = instantiate(nullptr);
@@ -118,7 +129,7 @@ void Scene::load(std::string filePath)
             StaticMeshComponent* mesh = (StaticMeshComponent*)lamp->instantiateComponent<StaticMeshComponent>();
             mesh->setMesh(createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
             mesh->material = Material(Simplest_Shader);
-            mesh->material.tex2DParam["Albedo"] = Texture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+            mesh->material.tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
         }
 
         {
@@ -132,7 +143,7 @@ void Scene::load(std::string filePath)
             StaticMeshComponent* mesh = (StaticMeshComponent*)lamp->instantiateComponent<StaticMeshComponent>();
             mesh->setMesh(createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
             mesh->material = Material(Simplest_Shader);
-            mesh->material.tex2DParam["Albedo"] = Texture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+            mesh->material.tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
         }
     }
 }
@@ -154,18 +165,20 @@ void Scene::destroy(GameObject* object)
 
 void Scene::update(float deltaTime)
 {
+    deltaTime_ = deltaTime;
+
     for (auto elem : gameObjects_) {
         elem->update(deltaTime);
     }
 
-    for (auto elem : rigidBodies_) {
+    for (auto elem : physicElements_) {
         elem->prepareToSimulation();
     }
 
     scene_->simulate(deltaTime);
     scene_->fetchResults(true);
 
-    for (auto elem : rigidBodies_) {
+    for (auto elem : physicElements_) {
         elem->fetchResults();
     }
 
@@ -182,9 +195,14 @@ physx::PxPhysics* Scene::getPxPhysics()
     return physics_;
 }
 
-void Scene::addRigidComponent(RigidBodyComponent* comp)
+physx::PxControllerManager* Scene::getPxControllerManager()
 {
-    rigidBodies_.push_back(comp);
+    return controllerManager_;
+}
+
+void Scene::addPhysicElement(PhysicElement* comp)
+{
+    physicElements_.push_back(comp);
 }
 
 Scene::Scene()
@@ -199,6 +217,7 @@ Scene::Scene()
     physx::PxSceneDesc desc(physics_->getTolerancesScale());
     desc.gravity = physx::PxVec3(0, -9.81, 0);
     scene_ = physics_->createScene(desc);
+    controllerManager_ = nullptr;
 }
 
 Scene::~Scene()

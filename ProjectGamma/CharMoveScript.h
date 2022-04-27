@@ -1,10 +1,9 @@
 #pragma once
 #include "ScriptableComponent.h"
-
 #include "CharacterControllerComponent.h"
 
 [event_receiver(native)]
-class MoveScript :
+class CharMoveScript :
     public ScriptableComponent
 {
 public:
@@ -15,8 +14,8 @@ private:
 
     CharacterControllerComponent* controller_;
 
-    MoveScript(GameObject* root);
-    ~MoveScript();
+    CharMoveScript(GameObject* root);
+    ~CharMoveScript();
 
     void onLook(glm::vec2& value);
     void onVertical(float& value);
@@ -26,4 +25,3 @@ private:
 
     friend GameObject;
 };
-

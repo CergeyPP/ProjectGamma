@@ -71,7 +71,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* root)
     static_ = 0;
 
     Scene& scene = Scene::get();
-    scene.addRigidComponent(this);
+    scene.addPhysicElement(this);
 }
 
 RigidBodyComponent::~RigidBodyComponent()

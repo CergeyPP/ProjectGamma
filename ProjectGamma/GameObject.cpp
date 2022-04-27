@@ -57,7 +57,7 @@ void GameObject::setRot(glm::quat rot) {
     rotation_ = rot;
 }
 
-void GameObject::getPos(glm::vec3 pos) {
+void GameObject::setPos(glm::vec3 pos) {
     position_ = pos;
 }
 

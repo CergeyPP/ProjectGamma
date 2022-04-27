@@ -149,6 +149,62 @@ void DrawSystem::removeLight(LightComponent* light)
 	}
 }
 
+GLuint DrawSystem::getTexture(std::string filePath)
+{
+	if (fileTextures_.count(filePath) == 0) {
+		GLuint texID_;
+		glGenTextures(1, &texID_);
+		glBindTexture(GL_TEXTURE_2D, texID_);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+		int width, height;
+		unsigned char* image = SOIL_load_image(filePath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+		if (sizeof(image) == 0) {
+			printf("File didnt open");
+		}
+		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB + int((float)sizeof(image) /width/height/3), width, height, 0, GL_RGB + int((float)sizeof(image) / width / height / 3), GL_UNSIGNED_BYTE, image);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		SOIL_free_image_data(image);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		fileTextures_[filePath] = texID_;
+	}
+
+	return fileTextures_[filePath];
+}
+
+GLuint DrawSystem::getTexture(glm::vec4 color)
+{
+	if (colorTextures_.count(color) == 0) {
+		GLuint texID_;
+		glGenTextures(1, &texID_);
+		glBindTexture(GL_TEXTURE_2D, texID_);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+		unsigned char image[] = { color.r * 255, color.g * 255, color.b * 255, color.a * 255 };
+
+		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB + int((float)sizeof(image) /width/height/3), width, height, 0, GL_RGB + int((float)sizeof(image) / width / height / 3), GL_UNSIGNED_BYTE, image);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		colorTextures_[color] = texID_;
+	}
+
+	return colorTextures_[color];
+}
+
 DrawSystem::~DrawSystem() {
 	
 }

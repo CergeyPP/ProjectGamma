@@ -32,6 +32,10 @@ public:
 	void removeDrawable(DrawableComponent* drawable);
 	void removeLight(LightComponent* light);
 
+
+	GLuint getTexture(std::string filePath);
+	GLuint getTexture(glm::vec4 color);
+
 private:
 
 	std::vector<CameraComponent*> camera_;
@@ -42,6 +46,15 @@ private:
 	void loadLight();
 
 	GLuint lightUBO;
+
+	struct vec4LessComparator {
+		bool operator()(const glm::vec4& first, const glm::vec4& second) const {
+			return glm::length(first) < glm::length(second) && (first.x < second.x);
+		}
+	};
+
+	std::map<std::string, GLuint> fileTextures_;
+	std::map < glm::vec4, GLuint, vec4LessComparator> colorTextures_;
 
 	DrawSystem();
 	~DrawSystem();

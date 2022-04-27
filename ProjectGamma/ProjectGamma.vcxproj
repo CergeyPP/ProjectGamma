@@ -250,7 +250,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>soil.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil.lib;PhysXCharacterKinematic_static_64.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -276,7 +276,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>soil.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil.lib;PhysXCharacterKinematic_static_64.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -305,6 +305,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="CharacterControllerComponent.cpp" />
+    <ClCompile Include="CharMoveScript.cpp" />
     <ClCompile Include="Conventers.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="IEventable.cpp" />
@@ -316,6 +318,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="LightComponent.cpp" />
     <ClCompile Include="MoveScript.cpp" />
+    <ClCompile Include="PhysicElement.cpp" />
     <ClCompile Include="PhysicSystem.cpp" />
     <ClCompile Include="DrawableComponent.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
@@ -328,6 +331,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="CharacterControllerComponent.h" />
+    <ClInclude Include="CharMoveScript.h" />
     <ClInclude Include="Converters.h" />
     <ClInclude Include="IEventable.h" />
     <ClInclude Include="Input.h" />
@@ -341,6 +346,7 @@
     <ClInclude Include="DrawSystem.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="LightComponent.h" />
+    <ClInclude Include="PhysicElement.h" />
     <ClInclude Include="PhysicSystem.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="DrawableComponent.h" />

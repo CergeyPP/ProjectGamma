@@ -51,6 +51,3 @@ private:
 	int textureCount = 0;
 };
 
-
-GLuint Texture(std::string filePath);
-GLuint Texture(glm::vec4 color);

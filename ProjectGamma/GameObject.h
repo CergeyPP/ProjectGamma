@@ -25,7 +25,7 @@ public:
 
 	void setRot(glm::quat rot);
 
-	void getPos(glm::vec3 pos);
+	void setPos(glm::vec3 pos);
 
 	void translate(glm::vec3 translateVec);
 	void rotate(glm::quat newRotate);

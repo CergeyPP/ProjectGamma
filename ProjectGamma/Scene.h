@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "PxPhysicsAPI.h"
+#include "PhysicElement.h"
 
 class GameObject;
 
@@ -39,10 +40,17 @@ public:
 
 	physx::PxScene* getPxScene();
 	physx::PxPhysics* getPxPhysics();
+	physx::PxControllerManager* getPxControllerManager();
 
-	void addRigidComponent(RigidBodyComponent* comp);
+	void addPhysicElement(PhysicElement* comp);
+
+	float getDeltaTime() {
+		return deltaTime_;
+	}
 
 private:
+
+	float deltaTime_ = 0;
 
 	Scene();
 	~Scene();
@@ -54,7 +62,7 @@ private:
 	std::vector<GameObject*> objectsToDestroy_;
 	std::vector<GameObject*> objectsToInstantiate_;
 
-	std::vector<RigidBodyComponent*> rigidBodies_;
+	std::vector<PhysicElement*> physicElements_;
 
 	physx::PxDefaultAllocator pxAllocator_;
 	physx::PxDefaultErrorCallback pxErrorCallback_;
@@ -62,6 +70,7 @@ private:
 	physx::PxPvd* pvd_;
 	physx::PxPhysics* physics_;
 	physx::PxScene* scene_;
+	physx::PxControllerManager* controllerManager_;
 
 };
 

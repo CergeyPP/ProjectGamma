@@ -1,9 +1,10 @@
 #pragma once
 #include "PxPhysicsAPI.h"
 #include "Component.h"
+#include "PhysicElement.h"
 
 class RigidBodyComponent :
-    public Component
+    public Component, PhysicElement
 {
 public:
 
@@ -11,8 +12,8 @@ public:
     physx::PxRigidDynamic* initializeDynamic();
     physx::PxRigidStatic* initializeStatic();
 
-    void prepareToSimulation();
-    void fetchResults();
+    void prepareToSimulation() override;
+    void fetchResults() override;
 
     physx::PxRigidActor* getActor();
 
