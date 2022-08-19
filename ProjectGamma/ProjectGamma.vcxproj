@@ -362,10 +362,25 @@
     <ResourceCompile Include="ProjectBeta.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="container.png" />
+    <Image Include="containerSpecular.png" />
     <Image Include="icon1.ico" />
+    <Image Include="tech.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assimp-vc143-mt.dll" />
+    <None Include="FLightProcessed.glsl" />
+    <None Include="FragmentSimple.glsl" />
+    <None Include="glew32.dll" />
     <None Include="packages.config" />
+    <None Include="PhysXCommon_64.dll" />
+    <None Include="PhysXCooking_64.dll" />
+    <None Include="PhysXDevice64.dll" />
+    <None Include="PhysXFoundation_64.dll" />
+    <None Include="PhysXGpu_64.dll" />
+    <None Include="PhysX_64.dll" />
+    <None Include="VertexSimple.glsl" />
+    <None Include="VLightProcessed.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

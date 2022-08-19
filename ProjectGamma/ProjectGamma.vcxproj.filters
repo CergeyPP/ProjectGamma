@@ -186,8 +186,29 @@
     <Image Include="icon1.ico">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="container.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="containerSpecular.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="tech.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="FLightProcessed.glsl" />
+    <None Include="FragmentSimple.glsl" />
+    <None Include="VertexSimple.glsl" />
+    <None Include="VLightProcessed.glsl" />
+    <None Include="assimp-vc143-mt.dll" />
+    <None Include="glew32.dll" />
+    <None Include="PhysX_64.dll" />
+    <None Include="PhysXCommon_64.dll" />
+    <None Include="PhysXCooking_64.dll" />
+    <None Include="PhysXDevice64.dll" />
+    <None Include="PhysXFoundation_64.dll" />
+    <None Include="PhysXGpu_64.dll" />
   </ItemGroup>
 </Project>
