@@ -226,7 +226,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\segsl\Projects\ProjectBeta\PhysX;C:\Users\segsl\Projects\ProjectBeta\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>soil.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil.lib;assimp-vc143-mt.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -250,10 +250,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>soil.lib;PhysXCharacterKinematic_static_64.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil.lib;assimp-vc143-mt.lib;PhysXCharacterKinematic_static_64.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='NoConsoleRelease|x64'">
     <ClCompile>
@@ -276,7 +280,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>soil.lib;PhysXCharacterKinematic_static_64.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil.lib;assimp-vc143-mt.lib;PhysXCharacterKinematic_static_64.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -299,7 +303,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\segsl\Projects\ProjectBeta\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>soil.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil.lib;assimp-vc143-mt.lib;PhysXPvdSDK_static_64.lib;PhysXExtensions_static_64.lib;PhysX_64.lib;PhysXCommon_64.lib;PhysXFoundation_64.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -308,6 +312,7 @@
     <ClCompile Include="CharacterControllerComponent.cpp" />
     <ClCompile Include="CharMoveScript.cpp" />
     <ClCompile Include="Conventers.cpp" />
+    <ClCompile Include="ConvexMesh.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="IEventable.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -317,6 +322,7 @@
     <ClCompile Include="DrawSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="LightComponent.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MoveScript.cpp" />
     <ClCompile Include="PhysicElement.cpp" />
     <ClCompile Include="PhysicSystem.cpp" />
@@ -334,10 +340,12 @@
     <ClInclude Include="CharacterControllerComponent.h" />
     <ClInclude Include="CharMoveScript.h" />
     <ClInclude Include="Converters.h" />
+    <ClInclude Include="ConvexMesh.h" />
     <ClInclude Include="IEventable.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MoveScript.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Component.h" />
@@ -348,7 +356,9 @@
     <ClInclude Include="LightComponent.h" />
     <ClInclude Include="PhysicElement.h" />
     <ClInclude Include="PhysicSystem.h" />
-    <ClInclude Include="resource.h" />
+    <Resource Include="resource.h">
+      <DeploymentContent>true</DeploymentContent>
+    </Resource>
     <ClInclude Include="DrawableComponent.h" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="Scene.h" />
@@ -359,28 +369,50 @@
     <ClInclude Include="ShaderEnum.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ProjectBeta.rc" />
+    <Resource Include="ProjectBeta.rc">
+      <DeploymentContent>true</DeploymentContent>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="container.png" />
-    <Image Include="containerSpecular.png" />
-    <Image Include="icon1.ico" />
-    <Image Include="tech.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assimp-vc143-mt.dll" />
-    <None Include="FLightProcessed.glsl" />
-    <None Include="FragmentSimple.glsl" />
-    <None Include="glew32.dll" />
-    <None Include="packages.config" />
-    <None Include="PhysXCommon_64.dll" />
-    <None Include="PhysXCooking_64.dll" />
-    <None Include="PhysXDevice64.dll" />
-    <None Include="PhysXFoundation_64.dll" />
-    <None Include="PhysXGpu_64.dll" />
-    <None Include="PhysX_64.dll" />
-    <None Include="VertexSimple.glsl" />
-    <None Include="VLightProcessed.glsl" />
+    <CopyFileToFolders Include="assimp-vc143-mt.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="FLightProcessed.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="FragmentSimple.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="glew32.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="packages.config">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="PhysXCommon_64.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="PhysXCooking_64.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="PhysXDevice64.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="PhysXFoundation_64.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="PhysXGpu_64.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="PhysX_64.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="VertexSimple.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="VLightProcessed.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

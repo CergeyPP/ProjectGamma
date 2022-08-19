@@ -7,10 +7,20 @@
 #include "Shader.h"
 #include "Window.h"
 #include "CameraComponent.h"
-#include "DrawableComponent.h"
+
 #include "LightComponent.h"
+#include "Material.h"
+
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #define LIGHTS_MAX 100
+
+class Mesh;
+class ConvexMesh;
+class DrawableComponent;
 
 class DrawSystem
 {
@@ -32,9 +42,12 @@ public:
 	void removeDrawable(DrawableComponent* drawable);
 	void removeLight(LightComponent* light);
 
-
 	GLuint getTexture(std::string filePath);
 	GLuint getTexture(glm::vec4 color);
+
+	ConvexMesh* getMesh(std::string filePath);
+
+	float gamma = 2.2;
 
 private:
 
@@ -42,6 +55,12 @@ private:
 	std::vector<DrawableComponent*> drawable_;
 	std::vector<LightComponent*> light_;
 	CameraComponent* mainCamera_;
+
+	void processFile(std::string& filePath);
+	void processNode(ConvexMesh* convexMesh, aiNode* node, const aiScene* scene);
+	Mesh* processMesh(ConvexMesh* mesh, aiMesh* aimesh, const aiScene* scene);
+
+	bool loadMaterialTextures(Material* material, aiMaterial* mat, aiTextureType type, std::string typeName, std::string& directory);
 
 	void loadLight();
 
@@ -55,7 +74,11 @@ private:
 
 	std::map<std::string, GLuint> fileTextures_;
 	std::map < glm::vec4, GLuint, vec4LessComparator> colorTextures_;
+	std::map<std::string, ConvexMesh*> fileMeshes_;
 
 	DrawSystem();
 	~DrawSystem();
 };
+
+#include "ConvexMesh.h"
+#include "DrawableComponent.h"

@@ -31,7 +31,7 @@ void Scene::load(std::string filePath)
     desc.gravity = physx::PxVec3(0, -9.81, 0);
     if (!desc.cpuDispatcher) {
         auto mCpuDispatcher = physx::PxDefaultCpuDispatcherCreate(4);
-        if (!mCpuDispatcher) 
+        if (!mCpuDispatcher)
             std::cout << "FATAL DISPATCHER!" << std::endl;
         desc.cpuDispatcher = mCpuDispatcher;
     }
@@ -50,7 +50,7 @@ void Scene::load(std::string filePath)
 
         {
             auto obj = instantiate(nullptr);
-            obj->translate(glm::vec3(0, 10, 0));
+            obj->translate(glm::vec3(0, 20, 0));
             obj->instantiateComponent<InputComponent>();
             CameraComponent* camera = (CameraComponent*)obj->instantiateComponent<CameraComponent>();
             camera->FOV = 90.f;
@@ -72,23 +72,23 @@ void Scene::load(std::string filePath)
             bodyStatic->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, true);
 
             StaticMeshComponent* mesh = (StaticMeshComponent*)floor->instantiateComponent<StaticMeshComponent>();
-            mesh->setMesh(createBoxMesh(glm::vec3(20, 0.1, 20)));
-            mesh->material = Material(Light_Shader);
-            mesh->material.tex2DParam["material.Albedo"] = drawSystem.getTexture(glm::vec4(0.7, 0.7, 0.7, 1));
-            mesh->material.tex2DParam["material.Specular"] = drawSystem.getTexture(glm::vec4(0.3));
-            mesh->material.floatParam["material.shininess"] = 8;
+            mesh->setMesh(&createBoxMesh(glm::vec3(20, 0.1, 20)));
+            mesh->mesh->material = new Material(Light_Shader);
+            mesh->mesh->material->tex2DParam["material.Albedo"] = drawSystem.getTexture(glm::vec4(0.7, 0.7, 0.7, 1));
+            mesh->mesh->material->tex2DParam["material.Specular"] = drawSystem.getTexture(glm::vec4(0.3));
+            mesh->mesh->material->floatParam["material.shininess"] = 8;
         }
 
-        for (int i = -5; i <= 5; i++) 
-            for (int j = -5; j <= 5; j++)
+        for (int i = 20; i <= 2; i++)
+            for (int j = 20; j <= 2; j++)
             {
                 auto cube = instantiate(nullptr, glm::vec3(j * 2, 5, i * 2));
                 StaticMeshComponent* mesh = (StaticMeshComponent*)cube->instantiateComponent<StaticMeshComponent>();
-                mesh->setMesh(createBoxMesh(glm::vec3(2)));
-                mesh->material = Material(Light_Shader);
-                mesh->material.tex2DParam["material.Albedo"] = drawSystem.getTexture("container.png");
-                mesh->material.tex2DParam["material.Specular"] = drawSystem.getTexture("containerSpecular.png");
-                mesh->material.floatParam["material.shininess"] = 1024;
+                mesh->setMesh(&createBoxMesh(glm::vec3(2)));
+                mesh->mesh->material = new Material(Light_Shader);
+                mesh->mesh->material->tex2DParam["material.Albedo"] = drawSystem.getTexture("container.png");
+                mesh->mesh->material->tex2DParam["material.Specular"] = drawSystem.getTexture("containerSpecular.png");
+                mesh->mesh->material->floatParam["material.shininess"] = 1024;
 
                 RigidBodyComponent* rBody = (RigidBodyComponent*)cube->instantiateComponent<RigidBodyComponent>();
                 auto bodyDynamic = rBody->initializeDynamic();
@@ -99,7 +99,6 @@ void Scene::load(std::string filePath)
                 bodyDynamic->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, false);
                 bodyDynamic->setMass(4);
                 bodyDynamic->setMassSpaceInertiaTensor(physx::PxVec3(1, 1, 1));
-
             }
 
         {
@@ -111,12 +110,10 @@ void Scene::load(std::string filePath)
             light->light.specular = glm::vec4(1);
             light->light.type = LightType::DIRECTIONAL_LIGHT;
             StaticMeshComponent* mesh = (StaticMeshComponent*)sun->instantiateComponent<StaticMeshComponent>();
-            mesh->setMesh(createBoxMesh(glm::vec3(0.1, 0.05, 0.05)));
-            mesh->material = Material(Simplest_Shader);
-            mesh->material.tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+            mesh->setMesh(&createBoxMesh(glm::vec3(0.1, 0.05, 0.05)));
+            mesh->mesh->material = new Material(Simplest_Shader);
+            mesh->mesh->material->tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
         }
-
-        
 
         {
             auto lamp = instantiate(nullptr);
@@ -127,9 +124,9 @@ void Scene::load(std::string filePath)
             light->light.type = LightType::POINT_LIGHT;
             light->setDistance(25);
             StaticMeshComponent* mesh = (StaticMeshComponent*)lamp->instantiateComponent<StaticMeshComponent>();
-            mesh->setMesh(createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
-            mesh->material = Material(Simplest_Shader);
-            mesh->material.tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+            mesh->setMesh(&createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
+            mesh->mesh->material = new Material(Simplest_Shader);
+            mesh->mesh->material->tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
         }
 
         {
@@ -141,9 +138,32 @@ void Scene::load(std::string filePath)
             light->light.type = LightType::POINT_LIGHT;
             light->setDistance(50);
             StaticMeshComponent* mesh = (StaticMeshComponent*)lamp->instantiateComponent<StaticMeshComponent>();
-            mesh->setMesh(createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
-            mesh->material = Material(Simplest_Shader);
-            mesh->material.tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+            mesh->setMesh(&createBoxMesh(glm::vec3(0.05, 0.05, 0.05)));
+            mesh->mesh->material = new Material(Simplest_Shader);
+            mesh->mesh->material->tex2DParam["Albedo"] = drawSystem.getTexture(glm::vec4(light->light.diffuse + light->light.specular) / 2.f);
+        }
+
+        {
+            auto blaster = instantiate(nullptr);
+            blaster->position_ = glm::vec3(0, 10, 0);
+            auto meshRoot = instantiate(blaster);
+            meshRoot->position_ = glm::vec3(0, -1, 0);
+            meshRoot->rotation_ = glm::quat(glm::vec3(0, -3.14/2, 0));
+            StaticMeshComponent* mesh = (StaticMeshComponent*)meshRoot->instantiateComponent<StaticMeshComponent>();
+            Mesh* modelmesh = drawSystem.getMesh("egirl/egirl.obj");
+            mesh->setMesh(modelmesh);
+            meshRoot->setScale(glm::vec3(0.01));
+            RigidBodyComponent* rBody = (RigidBodyComponent*)blaster->instantiateComponent<RigidBodyComponent>();
+            auto bodyDynamic = rBody->initializeDynamic();
+            auto material = physics_->createMaterial(0, 0, 0);
+            auto shape = physics_->createShape(physx::PxCapsuleGeometry(1, 0.1), *material, true);
+
+            rBody->setShape(shape);
+            shape->release();
+            bodyDynamic->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, false);
+            bodyDynamic->setMass(4);
+            bodyDynamic->setMassSpaceInertiaTensor(physx::PxVec3(1, 1, 1));
+
         }
     }
 }

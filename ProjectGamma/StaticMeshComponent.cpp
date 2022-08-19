@@ -1,12 +1,14 @@
 #include "StaticMeshComponent.h"
+#include "ConvexMesh.h"
 #include "DrawSystem.h"
 #include "Converters.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
 StaticMeshComponent::StaticMeshComponent(GameObject* root)
-	: DrawableComponent(root), material(Material()) {
+	: DrawableComponent(root) {
 
 }
 
@@ -16,24 +18,16 @@ StaticMeshComponent::~StaticMeshComponent() {
 
 void StaticMeshComponent::draw() {
 
-	DrawSystem& system = DrawSystem::get();
-
-	Shader& shader = system.shader_[material.shaderProgram];
-	glUseProgram(shader.getProgram());
-
-	glm::mat4 model = getRoot()->getTransformMatrix();
-	material.mat4Param["Model"] = model;
-
-	material.use();
-
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, EBOindicesCount_, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+	mesh->draw(getRoot()->getTransformMatrix());
 }
 
-void StaticMeshComponent::setMesh(Mesh mesh)
+void StaticMeshComponent::setMesh(Mesh* mesh_)
 {
-	mesh_ = mesh;
-	init(mesh_);
+
+	if (mesh_->isConvex()) {
+		mesh = new ConvexMesh((ConvexMesh*)mesh_);
+	}
+	else mesh = new Mesh(*mesh_);
+	mesh->init();
 }
 

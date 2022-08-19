@@ -93,11 +93,14 @@
     <ClCompile Include="CharMoveScript.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvexMesh.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Файлы ресурсов</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicSystem.h">
       <Filter>Файлы заголовков\Old</Filter>
     </ClInclude>
@@ -176,39 +179,34 @@
     <ClInclude Include="CharMoveScript.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvexMesh.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ProjectBeta.rc">
-      <Filter>Файлы ресурсов</Filter>
-    </ResourceCompile>
+    <CopyFileToFolders Include="assimp-vc143-mt.dll" />
+    <CopyFileToFolders Include="FLightProcessed.glsl" />
+    <CopyFileToFolders Include="FragmentSimple.glsl" />
+    <CopyFileToFolders Include="glew32.dll" />
+    <CopyFileToFolders Include="packages.config" />
+    <CopyFileToFolders Include="PhysX_64.dll" />
+    <CopyFileToFolders Include="PhysXCommon_64.dll" />
+    <CopyFileToFolders Include="PhysXCooking_64.dll" />
+    <CopyFileToFolders Include="PhysXDevice64.dll" />
+    <CopyFileToFolders Include="PhysXFoundation_64.dll" />
+    <CopyFileToFolders Include="PhysXGpu_64.dll" />
+    <CopyFileToFolders Include="VertexSimple.glsl" />
+    <CopyFileToFolders Include="VLightProcessed.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon1.ico">
+    <Resource Include="ProjectBeta.rc">
       <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="container.png">
+    </Resource>
+    <Resource Include="resource.h">
       <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="containerSpecular.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="tech.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="FLightProcessed.glsl" />
-    <None Include="FragmentSimple.glsl" />
-    <None Include="VertexSimple.glsl" />
-    <None Include="VLightProcessed.glsl" />
-    <None Include="assimp-vc143-mt.dll" />
-    <None Include="glew32.dll" />
-    <None Include="PhysX_64.dll" />
-    <None Include="PhysXCommon_64.dll" />
-    <None Include="PhysXCooking_64.dll" />
-    <None Include="PhysXDevice64.dll" />
-    <None Include="PhysXFoundation_64.dll" />
-    <None Include="PhysXGpu_64.dll" />
+    </Resource>
   </ItemGroup>
 </Project>

@@ -2,23 +2,21 @@
 #include "DrawableComponent.h"
 #include "Material.h"
 
-class StaticMeshComponent 
+class StaticMeshComponent
 	: public DrawableComponent
 {
 public:
 
 	void draw() override;
 
-	Material material;
-
-	void setMesh(Mesh mesh);
+	void setMesh(Mesh* mesh);
 
 private:
 
 	StaticMeshComponent(GameObject* root);
 	~StaticMeshComponent() override;
 
-	Mesh mesh_;
+
 
 	friend GameObject;
 };
